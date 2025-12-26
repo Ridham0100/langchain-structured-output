@@ -1,0 +1,53 @@
+6. Output Parsers
+
+help convert LLM responses into structured format like json, CSV, Pydantic models and more. They ensure consistency, validation and ease of use in applications.
+
+4 types:
+1. str o/p
+2. json o/p
+3. structured o/p
+4. pydantic o/p
+
+We have other parsers as well but we will focus on these.
+
+1. StrOutputParser
+
+topic -> LLM -> detailed o/p -> LLM -> 5 lines summary
+It is mainly used with chains.
+
+2. JsonOutputParser
+
+PromptTemplate(
+template = 'Give me the name and city \n {format_instruction}',
+input_variables = [],
+partial_variables= {'format_instruction': parser.get_format_instruction()}
+)
+
+
+Remember, It doesn't enforce a schema.
+Meaning,
+Give me facts about langchain.
+O/p -> facts : {o/p}
+But what if you need it like {fact1 : },{fact2 : },....
+
+It will not work for this so we need ..
+
+3. StructuredOutputParser
+
+helps extract structured Json data from LLM responses based on predefined field schemas.
+It works by defining a list of fields that model returns.
+
+Remember, data validation is not possible in Structured O/p.
+
+Name, age - 35 years instead if 35 (int). We have ton accept 35 years here, which is why we use ....
+
+
+4. PydanticOutputParser
+is a structured o/p that uses Pydantic models to enforce schema validation when processing LLM responses.
+
+Why ?
+1. Strict Schema Enforcement
+2. Type Safety
+3. Easy validation
+4. Seamless Integration
+
