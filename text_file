@@ -1,0 +1,60 @@
+5. Structured output - json output
+imp - > we can integrate these output with other programs/machines etc
+
+Why is it imp/ Use case :
+1. Data extraction -> Naukri.com -> name, skills
+2. API building -> amazon reviews -> topics, cons, pros, sentiment
+3. Build Agents -> Find sqroot of 2
+
+Two types of LLMs ->
+1. Can give structured output -> with_structured_output
+2. Cannot give structured output -> output_parsers
+
+
+1. Can give structured o/p
+three ways-
+1. TypedDict
+2.Pydantic
+3. Json_schema
+
+1. TypedDict : from typing
+to define dict in python.
+1. what keys and the type of values
+2. It does not validate it at run time.
+
+class Person:
+name: str
+
+name: Annotated[str, 'Write down the summary']
+name: Annotated[Optional[list[str]], 'Give the summary'] 
+
+
+#Remember, it does not validate which means that if you want reviews > 3, it can still give reviews <=3.
+or str instead of int etc....
+
+
+2. Pydantic
+is a data validation and data parsing lib for Python.
+It ensures that data is correct, structured and type-safe.
+
+Annotated -> Field(description = "Give summary")
+name : Optional[str] = Field(default = None, description = " ")
+
+Remember, it returns pydantic object so you have to convert it to dict or json(model.dump_to_json)
+
+It is more powerful.
+
+
+3. json_schema - multiple languages
+
+{
+    "title": "student",
+    "description": "schema about students",
+    "type": "object",
+    "properties":{
+        "name":"string",
+        "age":"integer"
+    },
+    "required":["name"]
+}
+
